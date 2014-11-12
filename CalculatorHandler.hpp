@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include "calculator_types.h"
 #include "Calculator.h"
 
 using namespace std;
@@ -15,10 +16,7 @@ class CalculatorHandler : public CalculatorIf
 {
 public:
     CalculatorHandler();
-    double add(const double a, const double b);
-    double sub(const double a, const double b);
-    double mul(const double a, const double b);
-    double div(const double a, const double b);
+    double perform(const Operation& o);
 };
 
 } // namespace baz

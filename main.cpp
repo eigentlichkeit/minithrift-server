@@ -9,6 +9,7 @@
 #include <thrift/transport/TBufferTransports.h>
 #include <thrift/protocol/TProtocol.h>
 #include <thrift/protocol/TBinaryProtocol.h>
+#include <thrift/protocol/TJSONProtocol.h>
 #include <thrift/server/TSimpleServer.h>
 
 #include "CalculatorHandler.hpp"
@@ -31,8 +32,11 @@ int main(int argc, char** argv)
     shared_ptr<TProcessor> processor(new CalculatorProcessor(handler));
     shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
     shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
-    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
-    TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
+    shared_ptr<TProtocolFactory> inputProtocolFactory(new TJSONProtocolFactory());
+    shared_ptr<TProtocolFactory> outputProtocolFactory(new TJSONProtocolFactory());
+    TSimpleServer server(processor, serverTransport,
+                         transportFactory, transportFactory,
+                         inputProtocolFactory, outputProtocolFactory);
 
     server.serve();
 
