@@ -16,7 +16,7 @@ class CalculatorHandler : public CalculatorIf
 {
 public:
     CalculatorHandler();
-    virtual double perform(const Operation& o);
+    double perform(const Operation& o);
 };
 
 } // namespace baz
